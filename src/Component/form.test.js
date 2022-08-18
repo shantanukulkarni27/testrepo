@@ -11,9 +11,8 @@ describe('Form test cases',()=>{
         expect(input).toBeInTheDocument();
         fireEvent.click(input)
         expect(input).toHaveFocus()
-
-        
     })
+    
     it("Should input label move upwards when clicked in input box",()=>{
         const component = render(<Form />)
         const input = screen.getByTestId("firstName").querySelector("input")
