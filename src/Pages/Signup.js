@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,6 +13,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import  {useNavigate} from "react-router-dom"
 
 function Copyright(props) {
   return (
@@ -29,6 +31,17 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
+
+  const [state,setState]=useState({
+    firstName:'',
+    lastName:'',
+    email:'',
+    password:''
+  })
+
+ const[check,setCheck]=useState(false)
+ const navigation = useNavigate()
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -37,6 +50,21 @@ export default function SignUp() {
       password: data.get('password'),
     });
   };
+
+  const onTextChange=(e)=>{
+    // console.log("key down",e.target.value)
+    const value = e.target.value
+    setState({...state,[e.target.name]:value})
+  }
+
+  const onCheck=(e)=>{
+   setCheck(!check)
+   console.log("check is",check)
+  }
+
+  const onSignUp=()=>{
+    navigation("/home")
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -67,7 +95,9 @@ export default function SignUp() {
                   id="firstName"
                   data-testid="firstName"
                   label="First Name"
+                  value={state.firstName}
                   autoFocus
+                  onChange={(e)=>onTextChange(e)}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -77,8 +107,10 @@ export default function SignUp() {
                   id="lastName"
                   data-testid="lastName"
                   label="Last Name"
+                  value={state.lastName}
                   name="lastName"
                   autoComplete="family-name"
+                  onChange={(e)=>onTextChange(e)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -87,9 +119,11 @@ export default function SignUp() {
                   fullWidth
                   id="email"
                   label="Email Address"
+                  value={state.email}
                   name="email"
                   data-testid="email"
                   autoComplete="email"
+                  onChange={(e)=>onTextChange(e)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -98,15 +132,17 @@ export default function SignUp() {
                   fullWidth
                   name="password"
                   label="Password"
+                  value={state.password}
                   data-testid="password"
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  onChange={(e)=>onTextChange(e)}
                 />
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" data-testid="checkbox" />}
+                  control={<Checkbox onClick={(e)=>onCheck(e)} value="allowExtraEmails" color="primary" data-testid="checkbox" />}
                   label="I want to receive inspiration, marketing promotions and updates via email."
                 />
               </Grid>
@@ -117,6 +153,8 @@ export default function SignUp() {
               variant="contained"
               data-testid="submit"
               sx={{ mt: 3, mb: 2 }}
+              onClick={onSignUp}
+              disabled={!state.firstName || !state.lastName || !state.email || !state.password || !check}
             >
               Sign Up
             </Button>
