@@ -57,25 +57,6 @@ export default function Home() {
                 Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
               </Typography>
               <Box sx={{ mt: 3, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                <TextField
-                  autoComplete="given-name"
-                  name="technology"
-                  required
-                  fullWidth
-                  id="tech"
-                  data-testid="techField"
-                  label="technology"
-                />
-                <TextField
-                  autoComplete="given-name"
-                  name="version"
-                  required
-                  fullWidth
-                  id="version"
-                  data-testid="version"
-                  label="version"
-                  sx={{ mt: 3 }}
-                />
                 <Button data-testid="changeHead" onClick={() => onSubmit()} sx={{ mt: 3, width: '30%' }} variant="contained">Change</Button>
               </Box>
             </Box>

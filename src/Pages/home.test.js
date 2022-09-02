@@ -36,10 +36,6 @@ describe("Home test cases", () => {
         fireEvent.click(modalButton)
         const modal = screen.getByTestId("my-modal")
         expect(modal).toBeInTheDocument()
-        const techField = screen.getByTestId("techField").querySelector("input")
-        fireEvent.mouseOver(techField)
-        console.log(techField)
-
     })
 
     it('should get underline when mouse is hovred on Home', () => {
